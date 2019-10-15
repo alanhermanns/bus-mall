@@ -28,5 +28,4 @@ export class itemArray {
         item.counter = counterValue;
         return item;
     }
-    
 }
