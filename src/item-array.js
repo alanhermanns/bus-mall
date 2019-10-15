@@ -22,4 +22,11 @@ export class itemArray {
         return this.items[randomItemIndex];
     }
 
+    incrementItemCounter(item){
+        let counterValue = item.counter;
+        counterValue++;
+        item.counter = counterValue;
+        return item;
+    }
+    
 }

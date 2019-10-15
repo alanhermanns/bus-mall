@@ -23,7 +23,9 @@ Code needs an item array object with methods.
 Each object needs a id, image, name, maybe a counter.
 The HTML needs 3 radio buttons. When the page is loaded they will be assigned values (the item id) and the item image. The item name will not be displayed.
 Upon clicking the radio button its description will appear below the image for 5 seconds and the page will reload, assigning new values and images to the radio buttons.
-Each item will have a counter, ititialized at 0, which will increment with each click- representing how many times the itmes were selected.
+Each item will have a counter, ititialized at 0, which will increment with each click- representing how many times the itmes were selected, maybe.
 A global counter will keep track of how many times the page loads- every time an item is selected- and after 25 times will display a table with the name of those items selected and how many times.
+
+If an item's counter is greater than zero it can be displayed on the display page with that value.
 
 
