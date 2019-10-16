@@ -75,8 +75,16 @@ itemRadioTags.forEach((radioTag) =>{
         localStorage.setItem('TOTAL', stringifiedTotal);
         if (total >= 25) {
             document.body.removeChild(itemSection);
-            const finalList = document.createElement('p');
-            finalList.textContent = stringifiedChooosings;
+            let finalChoosings = JSON.parse(localStorage.getItem('CHOOSINGS'));
+            console.log(finalChoosings);
+            const finalList = document.createElement('ul');
+            for (let i = 0; i < finalChoosings.length; i++){
+                const listItem = document.createElement('li');
+                listItem.textContent = finalChoosings[i].name + ',' + ' ' + finalChoosings[i].counter;
+                console.log(listItem);  
+                finalList.appendChild(listItem);
+            }
+            // finalList.textContent = stringifiedChooosings;
             document.body.appendChild(finalList);
         }
         if (total < 25) {
