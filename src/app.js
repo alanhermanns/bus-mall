@@ -48,6 +48,14 @@ itemRadioTags.forEach((radioTag) =>{
         else {
             choosings = [];
         }
+        localStorage.setItem('WORKING', JSON.stringify(items));
+        let working;
+        working = items.slice();
+        working = working.removeItemById(randomItemOne.id);
+        working = working.removeItemById(randomItemTwo.id);
+        working = working.removeItemById(randomItemThree.id);
+        localStorage.setItem('WORKING', JSON.stringify(working));
+
 
         let thisRadioItemsId = radioTag.value;
         const selectedItem = items.getItemById(thisRadioItemsId);
@@ -68,7 +76,6 @@ itemRadioTags.forEach((radioTag) =>{
 
         let stringifiedChooosings = JSON.stringify(choosings);
         localStorage.setItem('CHOOSINGS', stringifiedChooosings);
-        console.log(stringifiedChooosings);
 
         total++;
         let stringifiedTotal = JSON.stringify(total);
@@ -76,12 +83,10 @@ itemRadioTags.forEach((radioTag) =>{
         if (total >= 25) {
             document.body.removeChild(itemSection);
             let finalChoosings = JSON.parse(localStorage.getItem('CHOOSINGS'));
-            console.log(finalChoosings);
             const finalList = document.createElement('ul');
             for (let i = 0; i < finalChoosings.length; i++){
                 const listItem = document.createElement('li');
                 listItem.textContent = finalChoosings[i].name + ',' + ' ' + finalChoosings[i].counter;
-                console.log(listItem);  
                 finalList.appendChild(listItem);
             }
             // finalList.textContent = stringifiedChooosings;
