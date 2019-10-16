@@ -29,14 +29,13 @@ export class itemArray {
         return item;
     }
 
-    removeItemById(itemId) {
-        const items = this.items;
-        for (let i = 0; i < items.length; i++) {
-            const item = items[i];
+    removeItemById(itemId, itemArray) {
+        for (let i = 0; i < itemArray.items.length; i++) {
+            const item = itemArray.items[i];
             if (item.id === itemId) {
-                items.splice(i, 1);
-                return;
+                itemArray.items.splice(i, 1);
             }
         }
+        return itemArray;
     }
 }

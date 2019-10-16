@@ -11,16 +11,47 @@ const itemSection = document.getElementById('singular-display-section');
 
 const items = new itemArray(itemData);
 
+let jsonRemoved1 = localStorage.getItem('REMOVED1');
+let jsonRemoved2 = localStorage.getItem('REMOVED2');
+let jsonRemoved3 = localStorage.getItem('REMOVED3');
+let randomItemOne;
+let randomItemTwo;
+let randomItemThree;
+debugger;
+if (jsonRemoved1 && jsonRemoved2 && jsonRemoved3) {
+    randomItemOne = JSON.parse(jsonRemoved1);
+    randomItemTwo = JSON.parse(jsonRemoved2);
+    randomItemThree = JSON.parse(jsonRemoved3);
+}
 
-let randomItemOne = items.getRandomItem();
-let randomItemTwo = items.getRandomItem();
+let jsonWorking = localStorage.getItem('WORKING');
+let working;
+if (jsonWorking){
+    working = new itemArray(itemData);
+    working = working.removeItemById(randomItemOne.id, working);
+    working = working.removeItemById(randomItemTwo.id, working);
+    working = working.removeItemById(randomItemThree.id, working);
+    localStorage.setItem('WORKING', JSON.stringify(working));
+    debugger;
+} 
+else {
+    working = new itemArray(itemData);
+    jsonWorking = localStorage.setItem('WORKING', JSON.stringify(working));
+}
+
+randomItemOne = working.getRandomItem(); // send to local storage
+randomItemTwo = working.getRandomItem(); // send to local storage
 while (randomItemOne === randomItemTwo){
-    randomItemTwo = items.getRandomItem();
+    randomItemTwo = working.getRandomItem(); // send to local storage
 }
-let randomItemThree = items.getRandomItem();
+randomItemThree = working.getRandomItem();
 while (randomItemThree === randomItemTwo || randomItemThree === randomItemOne){
-    randomItemThree = items.getRandomItem();
+    randomItemThree = working.getRandomItem();
 }
+
+jsonRemoved1 = localStorage.setItem('REMOVED1', JSON.stringify(randomItemOne));
+jsonRemoved2 = localStorage.setItem('REMOVED2', JSON.stringify(randomItemTwo));
+jsonRemoved3 = localStorage.setItem('REMOVED3', JSON.stringify(randomItemThree));
 
 
 itemRadioTags[0].value = randomItemOne.id;
@@ -48,13 +79,8 @@ itemRadioTags.forEach((radioTag) =>{
         else {
             choosings = [];
         }
-        localStorage.setItem('WORKING', JSON.stringify(items));
-        let working;
-        working = items.slice();
-        working = working.removeItemById(randomItemOne.id);
-        working = working.removeItemById(randomItemTwo.id);
-        working = working.removeItemById(randomItemThree.id);
-        localStorage.setItem('WORKING', JSON.stringify(working));
+
+
 
 
         let thisRadioItemsId = radioTag.value;
