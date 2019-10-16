@@ -1,5 +1,6 @@
 import itemData from './items.js';
 import { itemArray } from './item-array.js';
+import { findById } from './utils.js';
 
 const itemImageTags = document.querySelectorAll('img');
 const itemRadioTags = document.querySelectorAll('input');
@@ -47,15 +48,28 @@ itemRadioTags.forEach((radioTag) =>{
         else {
             choosings = [];
         }
+
         let thisRadioItemsId = radioTag.value;
         const selectedItem = items.getItemById(thisRadioItemsId);
 
-        let itemCounter = selectedItem.counter;
-        itemCounter++;
-        selectedItem.counter = itemCounter;
-        choosings.push(selectedItem);
+        // let itemCounter = selectedItem.counter;
+        // itemCounter++;
+        // selectedItem.counter = itemCounter;
+
+        let testItem = findById(choosings, selectedItem.id);
+
+        if (!testItem) {
+            selectedItem.counter = selectedItem.counter + 1;
+            choosings.push(selectedItem);
+        }
+        else {
+            testItem.counter++;
+        }
+
         let stringifiedChooosings = JSON.stringify(choosings);
         localStorage.setItem('CHOOSINGS', stringifiedChooosings);
+        console.log(stringifiedChooosings);
+
         total++;
         let stringifiedTotal = JSON.stringify(total);
         localStorage.setItem('TOTAL', stringifiedTotal);

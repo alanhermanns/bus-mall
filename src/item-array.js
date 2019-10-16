@@ -28,4 +28,15 @@ export class itemArray {
         item.counter = counterValue;
         return item;
     }
+
+    removeItemById(itemId) {
+        const items = this.items;
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            if (item.id === itemId) {
+                items.splice(i, 1);
+                return;
+            }
+        }
+    }
 }
