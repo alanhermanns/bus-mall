@@ -17,7 +17,7 @@ let jsonRemoved3 = localStorage.getItem('REMOVED3');
 let randomItemOne;
 let randomItemTwo;
 let randomItemThree;
-debugger;
+
 if (jsonRemoved1 && jsonRemoved2 && jsonRemoved3) {
     randomItemOne = JSON.parse(jsonRemoved1);
     randomItemTwo = JSON.parse(jsonRemoved2);
@@ -32,7 +32,6 @@ if (jsonWorking){
     working = working.removeItemById(randomItemTwo.id, working);
     working = working.removeItemById(randomItemThree.id, working);
     localStorage.setItem('WORKING', JSON.stringify(working));
-    debugger;
 } 
 else {
     working = new itemArray(itemData);
@@ -109,14 +108,35 @@ itemRadioTags.forEach((radioTag) =>{
         if (total >= 25) {
             document.body.removeChild(itemSection);
             let finalChoosings = JSON.parse(localStorage.getItem('CHOOSINGS'));
-            const finalList = document.createElement('ul');
-            for (let i = 0; i < finalChoosings.length; i++){
-                const listItem = document.createElement('li');
-                listItem.textContent = finalChoosings[i].name + ',' + ' ' + finalChoosings[i].counter;
-                finalList.appendChild(listItem);
+            let labelColors = [];
+            for (let d = 0; d < finalChoosings.length; d++){
+                labelColors[d] = finalChoosings[d].name;
             }
-            // finalList.textContent = stringifiedChooosings;
-            document.body.appendChild(finalList);
+            
+            let data = [];
+            for (let d = 0; d < finalChoosings.length; d++){
+                data[d] = finalChoosings[d].counter;
+            }
+            const ctx = document.getElementById('chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labelColors,
+                    datasets: [{
+                        label: '# of Votes',
+                        data: data,
+                        backgroundColor: 'red',
+                    }]
+                },
+            });
+            // const finalList = document.createElement('ul');
+            // for (let i = 0; i < finalChoosings.length; i++){
+            //     const listItem = document.createElement('li');
+            //     listItem.textContent = finalChoosings[i].name + ',' + ' ' + finalChoosings[i].counter;
+            //     finalList.appendChild(listItem);
+            // }
+            // // finalList.textContent = stringifiedChooosings;
+            // document.body.appendChild(finalList);
         }
         if (total < 25) {
             location.reload();
